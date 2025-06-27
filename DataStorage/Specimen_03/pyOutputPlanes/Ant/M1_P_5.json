@@ -1,0 +1,167 @@
+{
+    "@schema": "https://raw.githubusercontent.com/slicer/slicer/master/Modules/Loadable/Markups/Resources/Schema/markups-schema-v1.0.3.json#",
+    "markups": [
+        {
+            "type": "Plane",
+            "coordinateSystem": "LPS",
+            "coordinateUnits": "mm",
+            "locked": false,
+            "fixedNumberOfControlPoints": false,
+            "labelFormat": "%N-%d",
+            "lastUsedControlPointNumber": 1,
+            "planeType": "pointNormal",
+            "sizeMode": "auto",
+            "autoScalingFactor": 1.0,
+            "center": [
+                -6.458006640277347,
+                11.87559834223606,
+                -315.04192326932105
+            ],
+            "normal": [
+                -0.04250623873887742,
+                -0.03467217807524912,
+                0.9984943964468663
+            ],
+            "objectToBase": [
+                -1.0,
+                -0.0,
+                -0.0,
+                -0.0,
+                -0.0,
+                -1.0,
+                -0.0,
+                -0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "baseToNode": [
+                -0.0,
+                -0.9990962014081896,
+                -0.04250623873887742,
+                -6.458006640277347,
+                0.9993976506361699,
+                0.001475117087609948,
+                -0.03467217807524912,
+                11.87559834223606,
+                0.034703543088623445,
+                -0.042480635133014255,
+                0.9984943964468663,
+                -315.04192326932105,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "orientation": [
+                0,
+                0,
+                -0.04250623873887742,
+                0,
+                0,
+                -0.03467217807524912,
+                0,
+                0,
+                0.9984943964468663
+            ],
+            "size": [
+                10.0,
+                10.0,
+                0.0
+            ],
+            "planeBounds": [
+                -20.0,
+                20.0,
+                -20.0,
+                20.0
+            ],
+            "controlPoints": [
+                {
+                    "id": "1",
+                    "label": "P-1",
+                    "description": "",
+                    "associatedNodeID": "",
+                    "position": [
+                        -6.458006640277347,
+                        11.87559834223606,
+                        -315.04192326932105
+                    ],
+                    "orientation": [
+                        -1.0,
+                        -0.0,
+                        -0.0,
+                        -0.0,
+                        -1.0,
+                        -0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "selected": true,
+                    "locked": false,
+                    "visibility": true,
+                    "positionStatus": "defined"
+                }
+            ],
+            "measurements": [
+                {
+                    "name": "area",
+                    "enabled": false,
+                    "units": "cm2",
+                    "printFormat": "%-#4.4g%s"
+                }
+            ],
+            "display": {
+                "visibility": false,
+                "opacity": 1.0,
+                "color": [
+                    0.4,
+                    1.0,
+                    0.0
+                ],
+                "selectedColor": [
+                    1.0,
+                    0.500008,
+                    0.500008
+                ],
+                "activeColor": [
+                    0.4,
+                    1.0,
+                    0.0
+                ],
+                "propertiesLabelVisibility": true,
+                "pointLabelsVisibility": false,
+                "textScale": 3.0,
+                "glyphType": "Sphere3D",
+                "glyphScale": 3.0,
+                "glyphSize": 5.0,
+                "useGlyphScale": true,
+                "sliceProjection": false,
+                "sliceProjectionUseFiducialColor": true,
+                "sliceProjectionOutlinedBehindSlicePlane": false,
+                "sliceProjectionColor": [
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "sliceProjectionOpacity": 0.6,
+                "lineThickness": 0.2,
+                "lineColorFadingStart": 1.0,
+                "lineColorFadingEnd": 10.0,
+                "lineColorFadingSaturation": 1.0,
+                "lineColorFadingHueoffsets": 0.0,
+                "handlesInteractive": true,
+                "translationHandleVisibility": false,
+                "rotationHandleVisibility": false,
+                "scaleHandleVisibility": true,
+                "interactionHandleScale": 3.0,
+                "snapMode": "toVisibleSurface"
+            }
+        }
+    ]
+}

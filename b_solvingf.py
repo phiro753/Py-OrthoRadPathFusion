@@ -1,9 +1,15 @@
-# Function for solving cubic polynomial
-# Robert Phillips
-# Created 2024-03/04
+"""
+Description: Function for solving a cubic polynomial
 
-# # https://stackoverflow.com/questions/15008396/is-there-any-numerical-solver-in-python-with-control-of-each-iteration
-# This file will need to be changed if a different order polynomial is desired to be used
+History:
+> Created by Robert Phillips 2024-03
+"""
+
+'''
+https://stackoverflow.com/questions/15008396/is-there-any-numerical-solver-in-python-with-control-of-each-iteration
+
+This file will need to be changed if a different order polynomial is desired to be used
+'''
 
 import math
 import numpy as np
@@ -25,13 +31,17 @@ class Fforpt2:
         """
         return a*pow(x,3)+b*pow(x,2)+c*x+d
         
-    def __init__(self,coeffx,coeffy,distance,pt1):
+    def __init__(self, coeffx, coeffy, distance, pt1):
         '''specifying what coefficients are, etc'''
+        """ coeffx, coeffy - lists of the coefficients for the cubic parametric equation for x in terms of z and y in terms of z,
+                assigning these to the coefficients, i.e. ax is coefficient of the first term of the cubic and so on
+        """
         # coefficients for x of Z parameterisation
         self.ax = coeffx[0]
         self.bx = coeffx[1]
         self.cx = coeffx[2]
         self.dx = coeffx[3]
+        
         # coefficients for Y of Z parameterisation
         self.ay = coeffy[0]
         self.by = coeffy[1]

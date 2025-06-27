@@ -1,7 +1,9 @@
-# File for bringing in JSON, reading 
-# Robert Phillips
-# 2024-03-14
+"""
+Description: Seraliser for bringing in JSON data - reading 
 
+History:
+> Created by Robert Phillips 2024-03
+"""
 import json
 
 class MarkupRead:
@@ -54,4 +56,3 @@ class MarkupRead:
         )
 
         return markup
-    
