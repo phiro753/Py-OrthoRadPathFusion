@@ -1,10 +1,6 @@
-""" 
-Description: Seraliser for writing to JSON - writing 
-
-History:
-> Created by Robert Phillips 2024-03
-"""
-
+# Defining seraliser for bringing in JSON (reading) 
+# Robert Phillips
+#  2024-03-14
 
 import json
 
