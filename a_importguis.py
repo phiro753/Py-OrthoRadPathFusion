@@ -144,9 +144,78 @@ class NumberTableGUI:
 
     def update_matrix_label(self):
         matrix_text = "\n".join([f"{row[0]:.2f}  {row[1]:.2f}" for row in self.table])
-        self.matrix_label.config(text=f"Measurements pairs (da and db respectively):\n{matrix_text}")
+        self.matrix_label.config(text=f"Measurements (columns: da, db):\n{matrix_text}")
 
-    
+    def run(self):
+        """ Start the GUI main loop """
+        self.root.mainloop()
+        return self.table
+
+
+class NumberTableGUIM3:
+    ''' Table of laboratory vernier caliper measurements. '''
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Number Table")
+        self.table = []  # Holds rows of three columns each
+
+        # Create widgets
+        self.label = tk.Label(
+            self.root, 
+            text="Enter three numbers separated by spaces (e.g., '12.5 14.8 16.2'):"
+        )
+        self.entry = tk.Entry(self.root)
+        self.add_button = tk.Button(self.root, text="Add Row", command=self.add_row)
+        self.subtract_button = tk.Button(self.root, text="Remove Last Row", command=self.subtract_row)
+        self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_matrix)
+        self.matrix_label = tk.Label(self.root, text="Measurements (columns: da, db, dc):")
+
+        # Grid layout
+        self.label.grid(row=0, column=0, columnspan=2, pady=5)
+        self.entry.grid(row=1, column=0, columnspan=2, pady=5)
+        self.add_button.grid(row=2, column=0, pady=5)
+        self.subtract_button.grid(row=2, column=1, pady=5)
+        self.submit_button.grid(row=3, column=0, columnspan=2, pady=5)
+        self.matrix_label.grid(row=4, column=0, columnspan=2, pady=5)
+
+    def add_row(self):
+        """ Add a new row to the table based on user input """
+        row_values = self.entry.get().strip().split()  # Split input by spaces
+        if len(row_values) == 3:  # Ensure exactly 3 values are entered
+            try:
+                self.table.append([float(val) for val in row_values])
+                self.update_matrix_label()
+                self.entry.delete(0, tk.END)  # Clear input field
+            except ValueError:
+                print("Invalid input. Please enter numeric values.")
+        else:
+            print("Please enter exactly 3 values for each row.")
+
+    def subtract_row(self):
+        """ Remove the last row from the table """
+        if self.table:
+            self.table.pop()
+            self.update_matrix_label()
+        else:
+            print("No rows to remove.")
+
+    def submit_matrix(self):
+        """ Submit the matrix and close the window """
+        print("Submitted Matrix:", self.table)
+        self.root.quit()  # Exit the main loop
+        self.root.destroy()  # Close the window
+
+    def update_matrix_label(self):
+        """ Update the display of the matrix of measurements """
+        # Format rows for display
+        matrix_text = "\n".join([f"{row[0]:.2f}  {row[1]:.2f}  {row[2]:.2f}" for row in self.table])
+        self.matrix_label.config(text=f"Measurements (columns: da, db, dc):\n{matrix_text}")
+
+    def run(self):
+        """ Start the GUI main loop """
+        self.root.mainloop()
+        return self.table
+
 class OffsetInputs:
     def __init__(self, length):
         self.length = length
@@ -171,7 +240,8 @@ class OffsetInputs:
         def submit():
             try:
                 self.values = [float(entry.get()) for entry in entries]
-                self.sign = 1 if sign_var.get() == '+' else -1
+                self.sign = 1 if sign_var.get() == "+" else -1
+                root.quit()
                 root.destroy()
             except ValueError:
                 tk.messagebox.showerror("Input Error", "Please enter valid numbers.")
