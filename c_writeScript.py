@@ -1,17 +1,21 @@
-# Writing py plane (defined by origin and coefficients) info to JSON plane in format for import back into Slicer Scene
-# Robert Phillips
-# 2024-03/04
+""" 
+Description: Writing py plane (defined by origin and coefficients) info to JSON plane in format for import back into Slicer Scene
+
+History:
+> Created by Robert Phillips 2024-04
+"""
 
 from c_JSONObjectWrite import MarkupContent # calling the seraliser as an object
 import json
 import numpy as np
 import math
+import os
 
 
 class writeRunning:
-    def __init__(self, dmatrix, offset, sign, S1, S2, npNorm2Cut):
+    def __init__(self, dmatrix, offsets, sign, S1, S2, npNorm2Cut):
         self.dmatrix = dmatrix
-        self.offset = offset
+        self.offsets = offsets
         self.sign = sign
         self.S1 = S1
         self.S2 = S2
@@ -19,30 +23,27 @@ class writeRunning:
 
 
     def write_to_folder(self, output_directory, bisection):
-        # Writing folder putting .json planes (schema for Slicer) into...
-        # outputsuffix = fileS1.split("/", -1)[0] + "/" + fileS1.split("/", -1)[1] + "/" + "pyOutputPlanes"
-        # Using the plane normals
+    # Ensure output directory exists
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
+
         NormalsArray = self.npNorm2Cut
-        # Origin or plane
-        Plxorigins = np.mean([self.S1.intx, self.S2.intx], axis = 0)
-        Plyorigins = np.mean([self.S1.inty, self.S2.inty], axis = 0)
-        Plzorigins = np.mean([self.S1.intz, self.S2.intz], axis = 0)
+        Plxorigins = np.mean([self.S1.intx, self.S2.intx], axis=0)
+        Plyorigins = np.mean([self.S1.inty, self.S2.inty], axis=0)
+        Plzorigins = np.mean([self.S1.intz, self.S2.intz], axis=0)
         CentresArray = np.zeros((len(self.dmatrix), 3))
-        # Getting right polarity for offset
-        # this is to determine whether offsets were subtracted from face that was measured to, or added to (depends on what size of seciton dissections were taken) 
+
         for i in range(len(self.dmatrix)):
-            # calculate the offset for the plane centre from the labrotory cut face. This offset is along the each plane normal (in mm)
-            offset_vector = NormalsArray[i] * (self.sign * self.offset[i]/1000)
-            # Structuring origin points into a readable np array (x, y, z) - also, storing cetnres array for plotting later
-            CentresArray[i,:] = [Plxorigins[i], Plyorigins[i], Plzorigins[i]] + offset_vector
-            # Identifying where to put plane json files once created    
-            writefile = output_directory + "/" + "P_{}".format(i+1) + bisection + ".json"
-            # Calling write function to put planes in 3DSlicer schema 
+            offsets_vector = NormalsArray[i] * (self.sign * self.offsets[i] / 1000)
+            CentresArray[i, :] = [Plxorigins[i], Plyorigins[i], Plzorigins[i]] + offsets_vector
+            
+            # Safely construct output file path
+            writefile = os.path.join(output_directory, f"{bisection}_P_{i+1}.json")
+            
+            # Create plane JSON
             Writ = writeFunschema(writefile, CentresArray[i], NormalsArray[i])
             baseToNode = Writ.CalcBase2Node()
-            # Iteratively calling writing seraliser 
             Writ.writeFun(baseToNode.flatten().tolist())
-
 
 
 class writeFunschema:
@@ -99,8 +100,8 @@ class writeFunschema:
             baseToNode = base2n,
             orientation=[0, 0, self.normal[0], 0, 0, self.normal[1], 0, 0, self.normal[2]], 
             # 
-            size=[20.0, 20.0, 0.0],
-            planeBounds=[-50.0, 50.0, -50.0, 50.0],
+            size=[10.0, 10.0, 0.0],
+            planeBounds=[-20.0, 20.0, -20.0, 20.0],
             controlPoints=[
                 {
                     "id_": "1",
@@ -145,7 +146,7 @@ class writeFunschema:
                 "lineColorFadingStart": 1.0,
                 "lineColorFadingEnd": 10.0,
                 "lineColorFadingSaturation": 1.0,
-                "lineColorFadingHueOffset": 0.0,
+                "lineColorFadingHueoffsets": 0.0,
                 "handlesInteractive": True,
                 "translationHandleVisibility": False,
                 "rotationHandleVisibility": False,

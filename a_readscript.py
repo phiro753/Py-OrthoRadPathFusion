@@ -1,7 +1,9 @@
-# Script for coordinating information extraction from markup files exported from 3DSlicer
-# Robert Phillips
-# 2024-03/04
+""" 
+Description: Script that utilises seraliser and gets the control points for splines from 3DSlier
 
+History: 
+> Created by Robert Phillips 2024-03
+"""
 from a_JSONObjectRead import MarkupRead
 import json
 
@@ -12,6 +14,7 @@ def extract_control_point_positions(file_path):
 
     # Create Markup instance from JSON data (if needed can pull anything else from this class)
     markup = MarkupRead.from_json(json_data)
+    
     # Extracting spline controlPoints 'positions'
     contorlpointlist = []
     for f in markup.controlPoints:
